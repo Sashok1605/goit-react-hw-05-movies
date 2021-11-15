@@ -2,8 +2,6 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import {
   Route,
   NavLink,
-  Switch,
-  Redirect,
   useRouteMatch,
   useLocation,
   useHistory,
