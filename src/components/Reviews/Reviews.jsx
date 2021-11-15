@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchMovieReviews } from '../../services/apiServices';
-
+import PropTypes from 'prop-types';
 const Reviews = ({ movieId }) => {
   const [reviews, setReviews] = useState([]);
 
@@ -25,6 +25,10 @@ const Reviews = ({ movieId }) => {
       )}
     </>
   );
+}
+
+Reviews.prototype = {
+  movieId : PropTypes.string.isRequired
 }
 
 export default Reviews;

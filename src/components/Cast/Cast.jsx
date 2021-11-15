@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchActorsCast } from '../../services/apiServices';
-
+import PropTypes from 'prop-types';
 
 const Cast = ({ movieId }) => {
   const [cast, setCast] = useState([]);
@@ -43,6 +43,10 @@ const Cast = ({ movieId }) => {
       )}
     </>
   );
+}
+
+Cast.prototype = {
+  movieId : PropTypes.string.isRequired
 }
 
 export default Cast;

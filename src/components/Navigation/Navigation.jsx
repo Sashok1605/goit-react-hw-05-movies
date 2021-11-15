@@ -5,12 +5,14 @@ import s from './Navigation.module.css';
 const Navigation = () => {
   return (
     <nav className={s.navigation}>
-      <NavLink className={s.link} activeStyle={{ color: "red" }} exact to="/">
+      <NavLink className={s.link} activeStyle={{ color: 'red' }} exact to="/">
         Home
       </NavLink>
-      <NavLink className={s.link} activeStyle={{ color: "red" }} to="/movies">Movies</NavLink>
+      <NavLink className={s.link} activeStyle={{ color: 'red' }} to="/movies">
+        Movies
+      </NavLink>
     </nav>
   );
-}
+};
 
 export default Navigation;

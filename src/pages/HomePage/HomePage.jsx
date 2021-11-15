@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchTrendMovies } from '../services/apiServices';
+import { fetchTrendMovies } from '../../services/apiServices';
 
-import s from '../components/Navigation/Navigation.module.css';
+import s from '../../components/Navigation/Navigation.module.css';
 
 
 const HomePage = () => {

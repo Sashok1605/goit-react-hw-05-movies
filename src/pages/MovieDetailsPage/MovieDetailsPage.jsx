@@ -2,21 +2,24 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import {
   Route,
   NavLink,
+  Switch,
+  Redirect,
   useRouteMatch,
   useLocation,
   useHistory,
 } from 'react-router-dom';
-import { fetchMovieById } from '../services/apiServices';
-import Loader from '../components/Loader';
-import s from '../components/Navigation/Navigation.module.css';
+import { fetchMovieById } from '../../services/apiServices';
+import Loader from '../../components/Loader';
+import s from '../../components/Navigation/Navigation.module.css';
 
-
-const Cast = lazy(() => import('../components/Cast/Cast' /* webpackChunkName: "cast" */));
+const Cast = lazy(() =>
+  import('../../components/Cast/Cast' /* webpackChunkName: "cast" */),
+);
 const Reviews = lazy(() =>
-  import('../components/Reviews/Reviews' /* webpackChunkName: "reviews" */),
+  import('../../components/Reviews/Reviews' /* webpackChunkName: "reviews" */),
 );
 
-const  MovieDetailsPage = () => {
+const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
   const {
     url,
@@ -27,6 +30,7 @@ const  MovieDetailsPage = () => {
 
   useEffect(() => {
     fetchMovieById(movieId).then(setMovie);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -56,26 +60,23 @@ const  MovieDetailsPage = () => {
           />
           <div className={s.details}>
             <h1 className={s.title_info}>{movie.title}</h1>
-            <p className={s.rank}>
-              User Score: {movie.vote_average * 10}%
-            </p>
+            <p className={s.rank}>User Score: {movie.vote_average * 10}%</p>
             <p className={s.subtitle}>Overview</p>
             <p className={s.text}>{movie.overview}</p>
             <p className={s.subtitle}>Genres:</p>
             <div className={s.genres}>
               {movie.genres.map(({ id, name }) => (
-                <p className={s.info_list} key={id} >
+                <p className={s.info_list} key={id}>
                   {name}
                 </p>
               ))}
             </div>
           </div>
         </section>
-        
       )}
       <h2 className={s.subtitle}>Additional information</h2>
       <NavLink
-      className={s.link_info}
+        className={s.link_info}
         to={{
           pathname: `${url}/cast`,
           state: {
@@ -85,13 +86,11 @@ const  MovieDetailsPage = () => {
             },
           },
         }}
-        
-        
       >
         Cast
       </NavLink>
       <NavLink
-      className={s.link_info}
+        className={s.link_info}
         to={{
           pathname: `${url}/reviews`,
           state: {
@@ -101,23 +100,23 @@ const  MovieDetailsPage = () => {
             },
           },
         }}
-        
-        
       >
         Reviews
       </NavLink>
       <Suspense fallback={<Loader />}>
-        <Route
-          path={`${url}/cast`}
-          render={() => <Cast movieId={movieId} />}
-        ></Route>
-        <Route
-          path={`${url}/reviews`}
-          render={() => <Reviews movieId={movieId} />}
-        ></Route>
+        
+          <Route 
+            path={`${url}/cast`}
+            render={() => <Cast movieId={movieId} />}
+          ></Route>
+          <Route 
+            path={`${url}/reviews`}
+            render={() => <Reviews movieId={movieId} />}
+          ></Route>
+       
       </Suspense>
     </>
   );
-}
+};
 
 export default MovieDetailsPage;

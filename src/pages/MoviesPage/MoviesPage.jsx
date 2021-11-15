@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
-import { fetchMoviesByQuery } from '../services/apiServices';
-import s from '../components/Cast/Cast.module.css';
+import { useLocation, useHistory } from 'react-router-dom';
+import { fetchMoviesByQuery } from '../../services/apiServices';
+import s from '../../components/Cast/Cast.module.css';
+import MovieList from '../../components/MovieList/MovieList'
 
 const MoviesPage = () => {
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
   const location = useLocation();
   const history = useHistory();
   const [query, setQuery] = useState('');
@@ -34,7 +35,7 @@ const MoviesPage = () => {
     history.push({ ...location, search: `query=${query}` });
     setQuery('');
   };
-
+  
   return (
     <>
       <form onSubmit={handleSubmit} className={s.searchForm}>
@@ -50,10 +51,12 @@ const MoviesPage = () => {
 
         <button type="submit" className={s.searchFormButton}>Search</button>
       </form>
+    <MovieList movies={movies} />
 
-      {movies && (
+      {/* {movies && (
         <ul>
           {movies.map(({ id, title, poster_path }) => (
+            
             <li key={id}>
               <Link
                 to={{
@@ -72,7 +75,7 @@ const MoviesPage = () => {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
     </>
   );
 }
